@@ -414,6 +414,36 @@
   .contact-form .form-status.err{ border-left-color: var(--rec); }
   .contact-form .form-status a{ text-decoration: underline; }
 
+  /* 견적 문의 폼 */
+  .form-title{ margin-bottom: 22px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.12); }
+  .form-title b{ display:block; font-size:18px; font-weight:700; color:#fff; }
+  .form-title span{ display:block; margin-top:4px; font-size:13px; color: rgba(250,250,248,0.55); }
+  fieldset.form-field{ border:0; padding:0; min-width:0; }
+  .form-field legend{ padding:0; font-size:12.5px; color: rgba(250,250,248,0.55); margin-bottom:8px; font-family:'JetBrains Mono', monospace; letter-spacing:0.03em; }
+  .form-field label small, .form-field legend small{ font-size:11.5px; opacity:0.75; margin-left:4px; }
+  .form-field .req{ font-style:normal; font-size:11px; color: var(--accent); margin-left:4px; }
+  .form-field input[type=date]{ color-scheme: dark; min-height:48px; display:block; -webkit-appearance:none; appearance:none; text-align:left; }
+  .form-field input[type=date]::-webkit-date-and-time-value{ text-align:left; }
+  .choices{ display:flex; flex-wrap:wrap; gap:8px; }
+  .form-field .choice{ position:relative; display:inline-flex; margin:0; cursor:pointer; font-size:14px; color:inherit; font-family:'Inter', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; letter-spacing:0; }
+  .choice input{ position:absolute; opacity:0; width:1px; height:1px; margin:0; pointer-events:none; }
+  .choice span{ display:inline-flex; align-items:center; gap:6px; min-height:44px; padding:10px 15px;
+                border:1px solid rgba(255,255,255,0.2); border-radius: var(--radius); background: rgba(255,255,255,0.05);
+                color: rgba(250,250,248,0.85); font-size:14px; line-height:1.3; font-family:inherit; transition: border-color 0.15s, background 0.15s; }
+  .choice:hover span{ border-color: rgba(255,255,255,0.45); }
+  .choice input:checked + span{ border-color: var(--accent); background: rgba(232,163,61,0.16); color:#fff; }
+  .choice input:checked + span::before{ content:'✓'; color: var(--accent); font-weight:700; }
+  .choice input:focus-visible + span{ outline: 2px solid var(--accent); outline-offset: 1px; }
+  .location-detail{ margin-top:10px; }
+  .js .location-detail{ display:none; }
+  .js .location-detail.show{ display:block; }
+  .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+  @media (max-width: 560px){
+    /* 폰에서 입력칸을 누를 때 화면이 확대되지 않게 */
+    .form-field input, .form-field textarea{ font-size:16px; }
+    .choice span{ font-size:14.5px; padding:10px 14px; }
+  }
+
 
   /* 개인정보 동의 */
   .form-consent{ margin: 4px 0 14px; padding: 13px 15px; border:1px solid var(--line);
@@ -579,206 +609,35 @@
     <button type="button" class="filter-btn" aria-pressed="false" data-filter="record">행사·공연 기록</button>
   </div>
 
+  <!--
+    ▼ 영상 포트폴리오 목록 — 영상 하나가 한 줄입니다. 위에 있을수록 화면에서도 먼저 보입니다.
+      data-cat : sketch(행사 스케치 칸) 또는 record(행사·공연 기록 칸) — 위쪽 분류 버튼 기준
+      data-tag : 카드에 붙는 작은 꼬리표 (예: 행사 스케치 / 행사 기록 / 공연 기록)
+      data-yt  : 유튜브 주소를 그대로 붙여 넣으면 됩니다 (youtu.be/…, watch?v=…, shorts/… 모두 가능)
+      <h3>…</h3> : 카드에 보이는 제목
+    추가는 비슷한 줄을 복사해서 원하는 자리에 붙이고, 삭제는 그 줄을 지우면 됩니다.
+  -->
   <div class="grid" id="portfolio-grid">
     <!-- 스케치 -->
-    <div class="vcard reveal" data-cat="sketch">
-      <div class="vthumb" data-yt="W_F1vqUsKdA" role="button" tabindex="0">
-        <img src="https://img.youtube.com/vi/W_F1vqUsKdA/hqdefault.jpg" alt="DiDA ENGAGE South Korea 행사 스케치" width="480" height="360" loading="lazy" decoding="async">
-        <span class="play"><svg width="16" height="16" viewBox="0 0 16 16" fill="#fff"><path d="M4 2l10 6-10 6V2z"/></svg></span>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">행사 스케치</span>
-        <h3>DiDA ENGAGE South Korea 행사 스케치</h3>
-      </div>
-    </div>
-
-    <div class="vcard reveal" data-cat="sketch">
-      <div class="vthumb" data-yt="xeSQAK5yj0c" role="button" tabindex="0">
-        <img src="https://img.youtube.com/vi/xeSQAK5yj0c/hqdefault.jpg" alt="2025 돌봄로봇네트워크 포럼 행사 스케치" width="480" height="360" loading="lazy" decoding="async">
-        <span class="play"><svg width="16" height="16" viewBox="0 0 16 16" fill="#fff"><path d="M4 2l10 6-10 6V2z"/></svg></span>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">행사 스케치</span>
-        <h3>2025 돌봄로봇네트워크 포럼 행사 스케치</h3>
-      </div>
-    </div>
-
-    <div class="vcard reveal" data-cat="sketch">
-      <div class="vthumb" data-yt="-3BA3ohj6jA" role="button" tabindex="0">
-        <img src="https://img.youtube.com/vi/-3BA3ohj6jA/hqdefault.jpg" alt="한성 SW중심대학 페스티벌 행사 스케치" width="480" height="360" loading="lazy" decoding="async">
-        <span class="play"><svg width="16" height="16" viewBox="0 0 16 16" fill="#fff"><path d="M4 2l10 6-10 6V2z"/></svg></span>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">행사 스케치</span>
-        <h3>한성 SW중심대학 페스티벌 행사 스케치</h3>
-      </div>
-    </div>
-
-    <div class="vcard reveal" data-cat="sketch">
-      <div class="vthumb" data-yt="CahgF6n4iPA" role="button" tabindex="0">
-        <img src="https://img.youtube.com/vi/CahgF6n4iPA/hqdefault.jpg" alt="아산유니버시티 성과공유회 행사 스케치" width="480" height="360" loading="lazy" decoding="async">
-        <span class="play"><svg width="16" height="16" viewBox="0 0 16 16" fill="#fff"><path d="M4 2l10 6-10 6V2z"/></svg></span>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">행사 스케치</span>
-        <h3>아산유니버시티 성과공유회 행사 스케치</h3>
-      </div>
-    </div>
-
-    <div class="vcard reveal" data-cat="sketch">
-      <div class="vthumb" data-yt="k_D_2Mpkghc" role="button" tabindex="0">
-        <img src="https://img.youtube.com/vi/k_D_2Mpkghc/hqdefault.jpg" alt="2025 마포구청 더북데이 행사 스케치" width="480" height="360" loading="lazy" decoding="async">
-        <span class="play"><svg width="16" height="16" viewBox="0 0 16 16" fill="#fff"><path d="M4 2l10 6-10 6V2z"/></svg></span>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">행사 스케치</span>
-        <h3>2025 마포구청 더북데이 행사 스케치</h3>
-      </div>
-    </div>
-
-    <div class="vcard reveal" data-cat="sketch">
-      <div class="vthumb" data-yt="hHVbf4BF_So" role="button" tabindex="0">
-        <img src="https://img.youtube.com/vi/hHVbf4BF_So/hqdefault.jpg" alt="2024 서울대학교 기후기술 창업 혁신대전 행사 스케치" width="480" height="360" loading="lazy" decoding="async">
-        <span class="play"><svg width="16" height="16" viewBox="0 0 16 16" fill="#fff"><path d="M4 2l10 6-10 6V2z"/></svg></span>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">행사 스케치</span>
-        <h3>2024 서울대학교 기후기술 창업 혁신대전 행사 스케치</h3>
-      </div>
-    </div>
-
-    <div class="vcard reveal" data-cat="sketch">
-      <div class="vthumb" data-yt="1okQRLZ4PWw" role="button" tabindex="0">
-        <img src="https://img.youtube.com/vi/1okQRLZ4PWw/hqdefault.jpg" alt="2024 PLITDJ COMPETITION 경연 대회 스케치" width="480" height="360" loading="lazy" decoding="async">
-        <span class="play"><svg width="16" height="16" viewBox="0 0 16 16" fill="#fff"><path d="M4 2l10 6-10 6V2z"/></svg></span>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">행사 스케치</span>
-        <h3>2024 PLITDJ COMPETITION 경연 대회 스케치</h3>
-      </div>
-    </div>
-
-    <div class="vcard reveal" data-cat="sketch">
-      <div class="vthumb" data-yt="ptRhvf23XRg" role="button" tabindex="0">
-        <img src="https://img.youtube.com/vi/ptRhvf23XRg/hqdefault.jpg" alt="071LABS FAMILY PARTY 에프터파티 행사 스케치" width="480" height="360" loading="lazy" decoding="async">
-        <span class="play"><svg width="16" height="16" viewBox="0 0 16 16" fill="#fff"><path d="M4 2l10 6-10 6V2z"/></svg></span>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">행사 스케치</span>
-        <h3>071LABS FAMILY PARTY 에프터파티 행사 스케치</h3>
-      </div>
-    </div>
-
-    <div class="vcard reveal" data-cat="sketch">
-      <div class="vthumb" data-yt="6cRuq-XYHRg" role="button" tabindex="0">
-        <img src="https://img.youtube.com/vi/6cRuq-XYHRg/hqdefault.jpg" alt="Liquid AI 네트워크 파티 스케치" width="480" height="360" loading="lazy" decoding="async">
-        <span class="play"><svg width="16" height="16" viewBox="0 0 16 16" fill="#fff"><path d="M4 2l10 6-10 6V2z"/></svg></span>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">행사 스케치</span>
-        <h3>Liquid AI 네트워크 파티 스케치</h3>
-      </div>
-    </div>
-
+    <div class="vcard reveal" data-cat="sketch" data-tag="행사 스케치" data-yt="https://youtu.be/W_F1vqUsKdA"><h3>DiDA ENGAGE South Korea 행사 스케치</h3></div>
+    <div class="vcard reveal" data-cat="sketch" data-tag="행사 스케치" data-yt="https://youtu.be/xeSQAK5yj0c"><h3>2025 돌봄로봇네트워크 포럼 행사 스케치</h3></div>
+    <div class="vcard reveal" data-cat="sketch" data-tag="행사 스케치" data-yt="https://youtu.be/-3BA3ohj6jA"><h3>한성 SW중심대학 페스티벌 행사 스케치</h3></div>
+    <div class="vcard reveal" data-cat="sketch" data-tag="행사 스케치" data-yt="https://youtu.be/CahgF6n4iPA"><h3>아산유니버시티 성과공유회 행사 스케치</h3></div>
+    <div class="vcard reveal" data-cat="sketch" data-tag="행사 스케치" data-yt="https://youtu.be/k_D_2Mpkghc"><h3>2025 마포구청 더북데이 행사 스케치</h3></div>
+    <div class="vcard reveal" data-cat="sketch" data-tag="행사 스케치" data-yt="https://youtu.be/hHVbf4BF_So"><h3>2024 서울대학교 기후기술 창업 혁신대전 행사 스케치</h3></div>
+    <div class="vcard reveal" data-cat="sketch" data-tag="행사 스케치" data-yt="https://youtu.be/1okQRLZ4PWw"><h3>2024 PLITDJ COMPETITION 경연 대회 스케치</h3></div>
+    <div class="vcard reveal" data-cat="sketch" data-tag="행사 스케치" data-yt="https://youtu.be/ptRhvf23XRg"><h3>071LABS FAMILY PARTY 에프터파티 행사 스케치</h3></div>
+    <div class="vcard reveal" data-cat="sketch" data-tag="행사 스케치" data-yt="https://youtu.be/6cRuq-XYHRg"><h3>Liquid AI 네트워크 파티 스케치</h3></div>
     <!-- 기록 -->
-    <div class="vcard reveal" data-cat="record">
-      <div class="vthumb" data-yt="MQVAln3fXBo" role="button" tabindex="0">
-        <img src="https://img.youtube.com/vi/MQVAln3fXBo/hqdefault.jpg" alt="2025 돌봄로봇 네트워크 포럼 실증연구개발" width="480" height="360" loading="lazy" decoding="async">
-        <span class="play"><svg width="16" height="16" viewBox="0 0 16 16" fill="#fff"><path d="M4 2l10 6-10 6V2z"/></svg></span>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">행사 기록</span>
-        <h3>2025 돌봄로봇 네트워크 포럼 실증연구개발</h3>
-      </div>
-    </div>
-
-    <div class="vcard reveal" data-cat="record">
-      <div class="vthumb" data-yt="GTRG5uBZWN8" role="button" tabindex="0">
-        <img src="https://img.youtube.com/vi/GTRG5uBZWN8/hqdefault.jpg" alt="2025 프로바이오 컨퍼런스 발표" width="480" height="360" loading="lazy" decoding="async">
-        <span class="play"><svg width="16" height="16" viewBox="0 0 16 16" fill="#fff"><path d="M4 2l10 6-10 6V2z"/></svg></span>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">행사 기록</span>
-        <h3>2025 프로바이오 컨퍼런스 발표</h3>
-      </div>
-    </div>
-
-    <div class="vcard reveal" data-cat="record">
-      <div class="vthumb" data-yt="vxWe6GNS-7E" role="button" tabindex="0">
-        <img src="https://img.youtube.com/vi/vxWe6GNS-7E/hqdefault.jpg" alt="어린이 공연 &quot;공휴일탐험대: 역사를 깨우다&quot;" width="480" height="360" loading="lazy" decoding="async">
-        <span class="play"><svg width="16" height="16" viewBox="0 0 16 16" fill="#fff"><path d="M4 2l10 6-10 6V2z"/></svg></span>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">공연 기록</span>
-        <h3>어린이 공연 "공휴일탐험대: 역사를 깨우다"</h3>
-      </div>
-    </div>
-
-    <div class="vcard reveal" data-cat="record">
-      <div class="vthumb" data-yt="XMxxA1CD2UU" role="button" tabindex="0">
-        <img src="https://img.youtube.com/vi/XMxxA1CD2UU/hqdefault.jpg" alt="밴드 적란운 공연" width="480" height="360" loading="lazy" decoding="async">
-        <span class="play"><svg width="16" height="16" viewBox="0 0 16 16" fill="#fff"><path d="M4 2l10 6-10 6V2z"/></svg></span>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">공연 기록</span>
-        <h3>밴드 적란운 공연</h3>
-      </div>
-    </div>
-
-    <div class="vcard reveal" data-cat="record">
-      <div class="vthumb" data-yt="gmkQBN_oH34" role="button" tabindex="0">
-        <img src="https://img.youtube.com/vi/gmkQBN_oH34/hqdefault.jpg" alt="교학사 양철우 회장님 상수연" width="480" height="360" loading="lazy" decoding="async">
-        <span class="play"><svg width="16" height="16" viewBox="0 0 16 16" fill="#fff"><path d="M4 2l10 6-10 6V2z"/></svg></span>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">행사 기록</span>
-        <h3>교학사 양철우 회장님 상수연</h3>
-      </div>
-    </div>
-
-    <div class="vcard reveal" data-cat="record">
-      <div class="vthumb" data-yt="WLH7LT8l1VY" role="button" tabindex="0">
-        <img src="https://img.youtube.com/vi/WLH7LT8l1VY/hqdefault.jpg" alt="시마크로 글로벌 런칭 데모데이 - Fireside Chat" width="480" height="360" loading="lazy" decoding="async">
-        <span class="play"><svg width="16" height="16" viewBox="0 0 16 16" fill="#fff"><path d="M4 2l10 6-10 6V2z"/></svg></span>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">행사 기록</span>
-        <h3>시마크로 글로벌 런칭 데모데이 - Fireside Chat</h3>
-      </div>
-    </div>
-
-    <div class="vcard reveal" data-cat="record">
-      <div class="vthumb" data-yt="QoHScGc5oBw" role="button" tabindex="0">
-        <img src="https://img.youtube.com/vi/QoHScGc5oBw/hqdefault.jpg" alt="[Busking Live] 빈세진 - Be The One" width="480" height="360" loading="lazy" decoding="async">
-        <span class="play"><svg width="16" height="16" viewBox="0 0 16 16" fill="#fff"><path d="M4 2l10 6-10 6V2z"/></svg></span>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">공연 기록</span>
-        <h3>[Busking Live] 빈세진 - Be The One</h3>
-      </div>
-    </div>
-
-    <div class="vcard reveal" data-cat="record">
-      <div class="vthumb" data-yt="uNPlyU1f88c" role="button" tabindex="0">
-        <img src="https://img.youtube.com/vi/uNPlyU1f88c/hqdefault.jpg" alt="[Busking Live] 수조(SUJO) - Square Cover" width="480" height="360" loading="lazy" decoding="async">
-        <span class="play"><svg width="16" height="16" viewBox="0 0 16 16" fill="#fff"><path d="M4 2l10 6-10 6V2z"/></svg></span>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">공연 기록</span>
-        <h3>[Busking Live] 수조(SUJO) - Square Cover</h3>
-      </div>
-    </div>
-
-    <div class="vcard reveal" data-cat="record">
-      <div class="vthumb" data-yt="K0W9SVgbBHk" role="button" tabindex="0">
-        <img src="https://img.youtube.com/vi/K0W9SVgbBHk/hqdefault.jpg" alt="M.AX의 미싱링크: 중견기업 연계형 지역산업 AI 혁신 포럼 요약본" width="480" height="360" loading="lazy" decoding="async">
-        <span class="play"><svg width="16" height="16" viewBox="0 0 16 16" fill="#fff"><path d="M4 2l10 6-10 6V2z"/></svg></span>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">행사 기록</span>
-        <h3>M.AX의 미싱링크: 중견기업 연계형 지역산업 AI 혁신 포럼 요약본</h3>
-      </div>
-    </div>
+    <div class="vcard reveal" data-cat="record" data-tag="행사 기록" data-yt="https://youtu.be/MQVAln3fXBo"><h3>2025 돌봄로봇 네트워크 포럼 실증연구개발</h3></div>
+    <div class="vcard reveal" data-cat="record" data-tag="행사 기록" data-yt="https://youtu.be/GTRG5uBZWN8"><h3>2025 프로바이오 컨퍼런스 발표</h3></div>
+    <div class="vcard reveal" data-cat="record" data-tag="공연 기록" data-yt="https://youtu.be/vxWe6GNS-7E"><h3>어린이 공연 "공휴일탐험대: 역사를 깨우다"</h3></div>
+    <div class="vcard reveal" data-cat="record" data-tag="공연 기록" data-yt="https://youtu.be/XMxxA1CD2UU"><h3>밴드 적란운 공연</h3></div>
+    <div class="vcard reveal" data-cat="record" data-tag="행사 기록" data-yt="https://youtu.be/gmkQBN_oH34"><h3>교학사 양철우 회장님 상수연</h3></div>
+    <div class="vcard reveal" data-cat="record" data-tag="행사 기록" data-yt="https://youtu.be/WLH7LT8l1VY"><h3>시마크로 글로벌 런칭 데모데이 - Fireside Chat</h3></div>
+    <div class="vcard reveal" data-cat="record" data-tag="공연 기록" data-yt="https://youtu.be/QoHScGc5oBw"><h3>[Busking Live] 빈세진 - Be The One</h3></div>
+    <div class="vcard reveal" data-cat="record" data-tag="공연 기록" data-yt="https://youtu.be/uNPlyU1f88c"><h3>[Busking Live] 수조(SUJO) - Square Cover</h3></div>
+    <div class="vcard reveal" data-cat="record" data-tag="행사 기록" data-yt="https://youtu.be/K0W9SVgbBHk"><h3>M.AX의 미싱링크: 중견기업 연계형 지역산업 AI 혁신 포럼 요약본</h3></div>
   </div>
 </section>
 
@@ -1111,52 +970,91 @@
       <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="contact-form" onsubmit="return handleContactSubmit(event)">
         <input type="hidden" name="form-name" value="contact" />
         <p style="display:none;"><label>봇 방지(작성하지 마세요): <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
-        <div class="form-field">
-          <label for="name">이름 / 소속</label>
-          <input id="name" name="name" type="text" autocomplete="name" required />
+        <div class="form-title">
+          <b>견적 문의</b>
+          <span>필수는 이름과 연락처뿐이에요. 나머지는 아시는 만큼만 골라 주세요.</span>
         </div>
         <div class="form-field">
-          <label for="email">이메일 (전화번호와 둘 중 하나는 꼭 적어주세요)</label>
-          <input id="email" name="email" type="email" autocomplete="email" placeholder="답변받으실 이메일" />
+          <label for="name">이름 또는 회사명 <i class="req">필수</i></label>
+          <input id="name" name="name" type="text" autocomplete="organization" placeholder="예: 홍길동 / OO기업 홍보팀" required />
         </div>
         <div class="form-field">
-          <label for="phone">전화번호</label>
-          <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="010-0000-0000" />
+          <label for="contact_info">연락처 <i class="req">필수</i></label>
+          <input id="contact_info" name="contact" type="text" autocomplete="tel" placeholder="전화번호 또는 이메일" required />
+        </div>
+        <fieldset class="form-field">
+          <legend>원하는 결과물 <small>여러 개 선택 가능</small></legend>
+          <div class="choices">
+            <label class="choice"><input type="checkbox" name="deliverables" value="스케치 영상" /><span>스케치 영상</span></label>
+            <label class="choice"><input type="checkbox" name="deliverables" value="기록 영상" /><span>기록 영상</span></label>
+            <label class="choice"><input type="checkbox" name="deliverables" value="사진" /><span>사진</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="form-field">
+          <legend>행사 종류</legend>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="event_type" value="기업 행사" /><span>기업 행사</span></label>
+            <label class="choice"><input type="radio" name="event_type" value="세미나·강연" /><span>세미나·강연</span></label>
+            <label class="choice"><input type="radio" name="event_type" value="공연" /><span>공연</span></label>
+            <label class="choice"><input type="radio" name="event_type" value="기관 행사" /><span>기관 행사</span></label>
+            <label class="choice"><input type="radio" name="event_type" value="기타" /><span>기타</span></label>
+          </div>
+        </fieldset>
+        <div class="form-field">
+          <label for="event_date">행사 날짜</label>
+          <input id="event_date" name="event_date" type="date" />
+        </div>
+        <fieldset class="form-field">
+          <legend>행사 시간</legend>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="event_time" value="3시간 미만" /><span>3시간 미만</span></label>
+            <label class="choice"><input type="radio" name="event_time" value="3~4시간" /><span>3~4시간</span></label>
+            <label class="choice"><input type="radio" name="event_time" value="반일" /><span>반일</span></label>
+            <label class="choice"><input type="radio" name="event_time" value="종일" /><span>종일</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="form-field">
+          <legend>장소</legend>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="location" value="수도권" /><span>수도권</span></label>
+            <label class="choice"><input type="radio" name="location" value="지방" /><span>지방</span></label>
+          </div>
+          <div class="location-detail" id="location-detail">
+            <label for="location_detail" class="sr-only">지방 지역</label>
+            <input id="location_detail" name="location_detail" type="text" placeholder="지역을 적어 주세요 (예: 부산 해운대구)" />
+          </div>
+        </fieldset>
+        <fieldset class="form-field">
+          <legend>촬영 규모</legend>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="crew" value="잘 모르겠어요(추천받기)" /><span>잘 모르겠어요 (추천받기)</span></label>
+            <label class="choice"><input type="radio" name="crew" value="1인 2캠" /><span>1인 2캠</span></label>
+            <label class="choice"><input type="radio" name="crew" value="2인 3캠" /><span>2인 3캠</span></label>
+            <label class="choice"><input type="radio" name="crew" value="3인 4캠" /><span>3인 4캠</span></label>
+          </div>
+        </fieldset>
+        <div class="form-field">
+          <label for="delivery_date">희망 납품일 <small>선택</small></label>
+          <input id="delivery_date" name="delivery_date" type="date" />
         </div>
         <div class="form-field">
-          <label for="date">희망 촬영 일정</label>
-          <input id="date" name="date" type="text" placeholder="예: 11월 중순, 오후 2~5시" />
-        </div>
-        <div class="form-field">
-          <label for="type">촬영 종류</label>
-          <input id="type" name="type" type="text" placeholder="예: 공연 스케치 + 기록 / 행사 사진" />
-        </div>
-        <div class="form-field">
-          <label for="location">촬영 장소 / 지역</label>
-          <input id="location" name="location" type="text" placeholder="예: 서울 강남구, OO컨벤션센터" />
-        </div>
-        <div class="form-field">
-          <label for="budget">예산 범위</label>
-          <input id="budget" name="budget" type="text" placeholder="예: 50만원 내외 (미정이면 비워두셔도 돼요)" />
-        </div>
-        <div class="form-field">
-          <label for="msg">상세 내용</label>
-          <textarea id="msg" name="message" required></textarea>
+          <label for="msg">요청사항</label>
+          <textarea id="msg" name="message" placeholder="행사 이름, 꼭 담고 싶은 장면, 궁금한 점 등을 자유롭게 적어 주세요."></textarea>
         </div>
         <div class="form-consent">
           <label>
-            <input id="consent" name="consent" type="checkbox" required />
+            <input id="consent" name="consent" type="checkbox" value="동의함" required />
             <span>
               <b>개인정보 수집·이용에 동의합니다.</b> (필수)
-              <em>이름·연락처·문의 내용을 상담 답변 목적으로 수집하며, 문의 처리 후 1년간 보관 뒤 파기합니다.
+              <em>이름(회사명)·연락처·촬영 정보를 견적 안내와 상담 목적으로 수집하며, 문의 처리 후 1년간 보관 뒤 파기합니다.
               동의하지 않으셔도 이메일·전화·카카오톡으로 문의하실 수 있습니다.</em>
             </span>
           </label>
           <button type="button" class="consent-more" onclick="openPrivacy()">전문 보기</button>
         </div>
-        <button type="submit" class="btn btn-primary">문의 보내기</button>
+        <button type="submit" class="btn btn-primary">견적 문의 보내기</button>
         <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
-        <p class="form-note">이메일/전화번호 중 하나는 남겨주시면 답변드리기 편해요. 나머지는 아시는 만큼만 적어주셔도 괜찮아요.</p>
+        <p class="form-note">남겨주신 내용을 확인한 뒤 적어 주신 연락처로 견적을 보내 드려요.</p>
       </form>
     </div>
   </div>
@@ -1178,7 +1076,7 @@
 <div class="privacy-backdrop" id="privacyBox" onclick="if(event.target===this) closePrivacy()">
   <div class="privacy-box" role="dialog" aria-modal="true" aria-labelledby="privacy-title" tabindex="-1">
     <h3 id="privacy-title">개인정보처리방침</h3>
-    <div class="pv-date">시행일 2026년 8월 14일</div>
+    <div class="pv-date">시행일 2026년 10월 16일</div>
 
     <p>시인 스튜디오(이하 &lsquo;스튜디오&rsquo;)는 이용자의 개인정보를 소중히 다루며,
     「개인정보 보호법」 등 관련 법령을 준수합니다.</p>
@@ -1188,8 +1086,8 @@
       <tr><th>구분</th><th>수집 항목</th><th>목적</th><th>보관 기간</th></tr>
       <tr>
         <td>문의 폼</td>
-        <td>이름·소속, 이메일, 전화번호, 촬영 일정·종류·장소·예산, 문의 내용</td>
-        <td>상담 답변 및 견적 안내</td>
+        <td>이름 또는 회사명, 연락처(전화번호 또는 이메일), 촬영 정보(원하는 결과물·행사 종류·날짜·시간·장소·촬영 규모·희망 납품일), 요청사항</td>
+        <td>견적 안내 및 상담 답변</td>
         <td>문의 처리 후 1년</td>
       </tr>
       <tr>
@@ -1199,8 +1097,7 @@
         <td>최대 14개월</td>
       </tr>
     </table>
-    <p>이름과 문의 내용 외의 항목은 선택이며, 입력하지 않으셔도 문의가 가능합니다.
-    다만 연락처를 남기지 않으시면 답변을 드리기 어렵습니다.</p>
+    <p>이름(회사명)과 연락처 외의 항목은 선택이며, 입력하지 않으셔도 문의가 가능합니다.</p>
 
     <h4>2. 동의를 거부할 권리</h4>
     <p>개인정보 수집·이용에 동의하지 않으실 수 있습니다. 이 경우 문의 폼은 이용하실 수 없으나,
@@ -1278,9 +1175,10 @@
     revealEls.forEach(el => el.classList.add('in'));
   }
 
-  // contact form -> Netlify Forms 실제 제출 (실패하면 실패 안내, 보내는 중 중복 전송 방지)
-  var CONTACT_OK = '문의가 접수되었습니다. 빠르게 확인 후 답변드릴게요!';
+  // 견적 문의 폼 -> Netlify Forms 실제 제출 (실패하면 실패 안내, 보내는 중 중복 전송 방지)
+  var CONTACT_OK = '견적 문의가 접수되었습니다. 확인 후 적어 주신 연락처로 견적을 보내 드릴게요!';
   var CONTACT_ERR = '전송 중 문제가 발생했어요. <a href="mailto:seein_media@naver.com">seein_media@naver.com</a>으로 직접 메일 주시면 바로 확인할게요.';
+  var FORM_OPENED_AT = Date.now();   // 스팸 방지: 페이지를 연 지 몇 초 만에 보내는 자동 프로그램 걸러내기
   function showFormStatus(kind, msg){
     const box = document.getElementById('form-status');
     box.className = 'form-status' + (kind ? ' ' + kind : '');
@@ -1288,17 +1186,63 @@
     const r = box.getBoundingClientRect();
     if (msg && (r.top < 0 || r.bottom > innerHeight)) box.scrollIntoView({ block: 'nearest' });
   }
+  function isValidContact(v){
+    v = v.trim();
+    if (v.indexOf('@') !== -1) return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    return /^[\d\s()+.-]+$/.test(v) && v.replace(/\D/g, '').length >= 8;
+  }
+
+  // 장소: '지방'을 고르면 지역 입력칸이 나타남
+  const locationDetail = document.getElementById('location-detail');
+  const locationDetailInput = document.getElementById('location_detail');
+  function syncLocation(){
+    const local = document.querySelector('input[name="location"][value="지방"]').checked;
+    locationDetail.classList.toggle('show', local);
+    locationDetailInput.required = local;
+  }
+  document.querySelectorAll('input[name="location"]').forEach(r => r.addEventListener('change', () => {
+    syncLocation();
+    if (locationDetail.classList.contains('show')) locationDetailInput.focus();
+  }));
+
+  // 연락처를 고치기 시작하면 경고 문구는 지움
+  document.getElementById('contact_info').addEventListener('input', () => {
+    if (document.getElementById('form-status').classList.contains('err')) showFormStatus('', '');
+  });
+
+  // 날짜는 오늘 이후만 고를 수 있게
+  (function(){
+    const t = new Date();
+    const today = t.getFullYear() + '-' + String(t.getMonth() + 1).padStart(2, '0') + '-' + String(t.getDate()).padStart(2, '0');
+    document.getElementById('event_date').min = today;
+    document.getElementById('delivery_date').min = today;
+  })();
+
   function handleContactSubmit(e){
     e.preventDefault();
     const form = e.target;
     if (form.dataset.sending) return false;
-    const email = document.getElementById('email');
-    const phone = document.getElementById('phone');
-    if (!email.value.trim() && !phone.value.trim()) {
-      showFormStatus('err', '이메일이나 전화번호 중 하나는 적어주세요. 답변드릴 곳이 필요해요.');
-      email.focus();
+    const contact = document.getElementById('contact_info');
+    if (!isValidContact(contact.value)) {
+      showFormStatus('err', '연락처를 확인해 주세요. 전화번호(예: 010-1234-5678)나 이메일 주소를 적어 주시면 돼요.');
+      contact.focus();
       return false;
     }
+    // 사람은 몇 초 만에 폼을 다 채울 수 없으므로, 너무 빠르거나 숨은 칸이 채워지면 보내지 않음
+    if (Date.now() - FORM_OPENED_AT < 3000 || form.elements['bot-field'].value) {
+      form.reset(); syncLocation();
+      showFormStatus('ok', CONTACT_OK);
+      return false;
+    }
+    // 여러 개 고른 결과물은 "스케치 영상, 사진"처럼 한 칸으로 묶어서 보냄
+    const data = new URLSearchParams();
+    const fd = new FormData(form);
+    const seen = {};
+    fd.forEach((v, k) => {
+      if (k in seen) { data.set(k, data.get(k) + ', ' + v); }
+      else { seen[k] = 1; data.append(k, v); }
+    });
+    if (!data.get('location') || data.get('location') !== '지방') data.delete('location_detail');
     const btn = form.querySelector('button[type="submit"]');
     const label = btn.textContent;
     form.dataset.sending = '1';
@@ -1310,12 +1254,13 @@
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(new FormData(form)).toString(),
+      body: data.toString(),
       signal: ctrl ? ctrl.signal : undefined
     })
     .then(res => {
       if (!res.ok) throw new Error('HTTP ' + res.status);
       form.reset();
+      syncLocation();
       showFormStatus('ok', CONTACT_OK);
     })
     .catch(() => showFormStatus('err', CONTACT_ERR))   // 입력한 내용은 그대로 둠
@@ -1327,6 +1272,38 @@
     });
     return false;
   }
+
+  // portfolio: 한 줄짜리 카드(data-yt·data-tag·제목)에 썸네일·재생 버튼·꼬리표를 채워 넣음
+  function youtubeId(v){
+    v = (v || '').trim();
+    const m = v.match(/(?:youtu\.be\/|[?&]v=|\/(?:embed|shorts|live)\/)([\w-]{11})/);
+    return m ? m[1] : v;
+  }
+  document.querySelectorAll('#portfolio-grid .vcard').forEach(card => {
+    const h3 = card.querySelector('h3');
+    const title = h3 ? h3.textContent.trim() : '';
+    const id = youtubeId(card.dataset.yt);
+    const thumb = document.createElement('div');
+    thumb.className = 'vthumb';
+    thumb.dataset.yt = id;
+    thumb.setAttribute('role', 'button');
+    thumb.tabIndex = 0;
+    const img = document.createElement('img');
+    img.src = 'https://img.youtube.com/vi/' + encodeURIComponent(id) + '/hqdefault.jpg';
+    img.alt = title; img.width = 480; img.height = 360;
+    img.loading = 'lazy'; img.decoding = 'async';
+    thumb.appendChild(img);
+    thumb.insertAdjacentHTML('beforeend', '<span class="play"><svg width="16" height="16" viewBox="0 0 16 16" fill="#fff"><path d="M4 2l10 6-10 6V2z"/></svg></span>');
+    const body = document.createElement('div');
+    body.className = 'card-body';
+    const tag = document.createElement('span');
+    tag.className = 'card-tag';
+    tag.textContent = card.dataset.tag || (card.dataset.cat === 'sketch' ? '행사 스케치' : '행사 기록');
+    body.appendChild(tag);
+    if (h3) body.appendChild(h3);
+    card.prepend(thumb);
+    card.appendChild(body);
+  });
 
   // portfolio filter
   const filterBtns = document.querySelectorAll('.filter-btn');
