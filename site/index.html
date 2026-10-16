@@ -485,18 +485,20 @@
   .footer-row{ display:flex; justify-content:space-between; align-items:center; color: rgba(250,250,248,0.5); font-size:12.5px; flex-wrap:wrap; gap:12px; }
   .footer-row a{ color: rgba(250,250,248,0.7); }
 
-  /* 폰 화면 카톡 상담 버튼 */
-  .float-kakao{ display:none; }
+  /* 카톡 상담 버튼 (오른쪽 아래) */
+  .float-kakao{
+    display:flex; align-items:center; gap:7px; position:fixed; z-index:150;
+    right:28px; bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+    padding: 12px 18px; border-radius: 999px; background: var(--ink); color: var(--bg);
+    font-size:14px; font-weight:600; box-shadow: 0 10px 26px -10px rgba(20,20,20,0.55);
+    opacity:0; transform: translateY(14px); pointer-events:none; transition: opacity 0.25s, transform 0.25s, background 0.2s, color 0.2s;
+  }
+  .float-kakao.show{ opacity:1; transform:none; pointer-events:auto; }
+  .float-kakao:hover{ background: var(--accent); color: var(--accent-ink); }
+  .float-kakao:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
+  .float-kakao svg{ flex:0 0 auto; }
   @media (max-width: 880px){
-    .float-kakao{
-      display:flex; align-items:center; gap:7px; position:fixed; z-index:150;
-      right:16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px));
-      padding: 12px 17px; border-radius: 999px; background: var(--ink); color: var(--bg);
-      font-size:14px; font-weight:600; box-shadow: 0 10px 26px -10px rgba(20,20,20,0.55);
-      opacity:0; transform: translateY(14px); pointer-events:none; transition: opacity 0.25s, transform 0.25s;
-    }
-    .float-kakao.show{ opacity:1; transform:none; pointer-events:auto; }
-    .float-kakao svg{ flex:0 0 auto; }
+    .float-kakao{ right:16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); padding: 12px 17px; }
   }
   @media (max-width: 880px){
     .nav-links{ display:none; }
@@ -1438,7 +1440,7 @@
   const navMq = matchMedia('(max-width: 880px)');
   if (navMq.addEventListener) navMq.addEventListener('change', () => setMenu(false));
 
-  // 폰 화면 카톡 상담 버튼: 첫 화면을 지나면 나타나고, 문의하기 영역이 보일 때는 숨김
+  // 카톡 상담 버튼: 첫 화면을 지나면 나타나고, 문의하기 영역이 보일 때는 숨김
   const floatKakao = document.getElementById('float-kakao');
   let contactInView = false;
   function syncFloatKakao(){
