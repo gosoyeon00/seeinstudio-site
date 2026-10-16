@@ -485,6 +485,19 @@
   .footer-row{ display:flex; justify-content:space-between; align-items:center; color: rgba(250,250,248,0.5); font-size:12.5px; flex-wrap:wrap; gap:12px; }
   .footer-row a{ color: rgba(250,250,248,0.7); }
 
+  /* 폰 화면 카톡 상담 버튼 */
+  .float-kakao{ display:none; }
+  @media (max-width: 880px){
+    .float-kakao{
+      display:flex; align-items:center; gap:7px; position:fixed; z-index:150;
+      right:16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+      padding: 12px 17px; border-radius: 999px; background: var(--ink); color: var(--bg);
+      font-size:14px; font-weight:600; box-shadow: 0 10px 26px -10px rgba(20,20,20,0.55);
+      opacity:0; transform: translateY(14px); pointer-events:none; transition: opacity 0.25s, transform 0.25s;
+    }
+    .float-kakao.show{ opacity:1; transform:none; pointer-events:auto; }
+    .float-kakao svg{ flex:0 0 auto; }
+  }
   @media (max-width: 880px){
     .nav-links{ display:none; }
     .nav-toggle{ display:block; }
@@ -521,6 +534,7 @@
     .ticker-track{ animation:none; }
     .js .reveal{ opacity:1; transform:none; transition:none; }
     .faq-a, .faq-item.open .faq-a, .faq-q .plus{ transition:none; }
+    .float-kakao{ transition:none; }
   }
 </style>
 </head>
@@ -988,6 +1002,7 @@
             <label class="choice"><input type="checkbox" name="deliverables" value="스케치 영상" /><span>스케치 영상</span></label>
             <label class="choice"><input type="checkbox" name="deliverables" value="기록 영상" /><span>기록 영상</span></label>
             <label class="choice"><input type="checkbox" name="deliverables" value="사진" /><span>사진</span></label>
+            <label class="choice"><input type="checkbox" name="deliverables" value="유튜브 라이브 중계" /><span>유튜브 라이브 중계</span></label>
           </div>
         </fieldset>
         <fieldset class="form-field">
@@ -1071,6 +1086,11 @@
   </footer>
 </section>
 </main>
+
+<a href="https://pf.kakao.com/_IjxkAn/chat" class="float-kakao" id="float-kakao" target="_blank" rel="noopener" aria-label="카카오톡으로 상담하기" tabindex="-1">
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.48 3 2 6.58 2 11c0 2.82 1.83 5.3 4.6 6.72l-.95 3.48c-.08.3.26.54.52.37l4.14-2.74c.55.07 1.11.11 1.69.11 5.52 0 10-3.58 10-8S17.52 3 12 3z"/></svg>
+  카톡 상담
+</a>
 
 <!-- 개인정보처리방침 -->
 <div class="privacy-backdrop" id="privacyBox" onclick="if(event.target===this) closePrivacy()">
@@ -1175,6 +1195,21 @@
     revealEls.forEach(el => el.classList.add('in'));
   }
 
+  // 구글 애널리틱스 기록 (이름·연락처 같은 개인정보는 보내지 않음)
+  function trackEvent(name, params){
+    try { if (window.gtag) gtag('event', name, params || {}); } catch (e) {}
+  }
+  // 전화·메일·카톡 버튼을 누른 횟수 기록
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href]');
+    if (!a) return;
+    const href = a.getAttribute('href');
+    const where = a.id === 'float-kakao' ? 'floating' : 'page';
+    if (href.indexOf('pf.kakao.com') !== -1) trackEvent('contact_click', { method: 'kakao', link_location: where });
+    else if (href.indexOf('tel:') === 0) trackEvent('contact_click', { method: 'phone', link_location: where });
+    else if (href.indexOf('mailto:') === 0) trackEvent('contact_click', { method: 'email', link_location: where });
+  });
+
   // 견적 문의 폼 -> Netlify Forms 실제 제출 (실패하면 실패 안내, 보내는 중 중복 전송 방지)
   var CONTACT_OK = '견적 문의가 접수되었습니다. 확인 후 적어 주신 연락처로 견적을 보내 드릴게요!';
   var CONTACT_ERR = '전송 중 문제가 발생했어요. <a href="mailto:seein_media@naver.com">seein_media@naver.com</a>으로 직접 메일 주시면 바로 확인할게요.';
@@ -1259,6 +1294,11 @@
     })
     .then(res => {
       if (!res.ok) throw new Error('HTTP ' + res.status);
+      trackEvent('generate_lead', {
+        form_name: 'quote',
+        deliverables: data.get('deliverables') || '',
+        event_type: data.get('event_type') || ''
+      });
       form.reset();
       syncLocation();
       showFormStatus('ok', CONTACT_OK);
@@ -1397,6 +1437,23 @@
   });
   const navMq = matchMedia('(max-width: 880px)');
   if (navMq.addEventListener) navMq.addEventListener('change', () => setMenu(false));
+
+  // 폰 화면 카톡 상담 버튼: 첫 화면을 지나면 나타나고, 문의하기 영역이 보일 때는 숨김
+  const floatKakao = document.getElementById('float-kakao');
+  let contactInView = false;
+  function syncFloatKakao(){
+    const show = scrollY > innerHeight * 0.8 && !contactInView;
+    floatKakao.classList.toggle('show', show);
+    floatKakao.tabIndex = show ? 0 : -1;
+  }
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver((entries) => {
+      contactInView = entries[0].isIntersecting;
+      syncFloatKakao();
+    }).observe(document.getElementById('contact'));
+  }
+  addEventListener('scroll', syncFloatKakao, { passive: true });
+  syncFloatKakao();
 
   // 개인정보처리방침 창
   const privacyBackdrop = document.getElementById('privacyBox');

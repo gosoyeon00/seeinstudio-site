@@ -34,6 +34,11 @@ Netlify 메일·Forms 화면에는 항목 이름이 영어로 나와요.
 | message | 요청사항 |
 | consent | 개인정보 동의 |
 
+## 구글 애널리틱스에 남는 기록
+
+- `generate_lead` : 견적 문의가 접수될 때 (이름·연락처는 기록하지 않음)
+- `contact_click` : 전화·메일·카톡 버튼을 누를 때 (`method`에 phone / email / kakao)
+
 ## 사이트에 반영하는 법
 
 이 저장소는 Netlify와 연결돼 있어요. `main`에 합치면 1~2분 뒤 seeinstudio.co.kr에 자동으로 반영돼요.
