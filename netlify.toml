@@ -1,3 +1,7 @@
 # Netlify 설정: 사이트 파일은 site 폴더에 있어요 (README 등은 사이트에 공개되지 않음)
 [build]
   publish = "site"
+
+# 견적 문의가 오면 디스코드로 알림을 보내는 기능이 들어 있는 폴더
+[functions]
+  directory = "netlify/functions"
