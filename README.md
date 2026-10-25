@@ -34,6 +34,15 @@ Netlify 메일·Forms 화면에는 항목 이름이 영어로 나와요.
 | message | 요청사항 |
 | consent | 개인정보 동의 |
 
+## 견적 문의 디스코드 알림
+
+견적 문의가 접수되면 디스코드 채널로 바로 알림이 가요 (`netlify/functions/submission-created.mjs`).
+넷리파이가 스팸이 아니라고 확인한 문의만 오고, 알림이 실패해도 문의는 넷리파이 Forms와 메일에 그대로 남아요.
+
+- 디스코드 웹후크 주소는 **넷리파이 환경 변수 `DISCORD_WEBHOOK_URL`** 에 넣어요. 이 저장소는 공개라서 코드에 적으면 안 돼요.
+- 주소를 바꾸거나 처음 넣은 뒤에는 넷리파이 Deploys → Trigger deploy → Deploy project 를 한 번 눌러야 적용돼요.
+- 알림이 안 오면: 넷리파이 → Logs → Functions → `submission-created` 에서 이유가 한국어로 찍혀 있어요.
+
 ## 구글 애널리틱스에 남는 기록
 
 - `generate_lead` : 견적 문의가 접수될 때 (이름·연락처는 기록하지 않음)
