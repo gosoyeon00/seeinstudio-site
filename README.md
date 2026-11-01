@@ -46,7 +46,11 @@ Netlify 메일·Forms 화면에는 항목 이름이 영어로 나와요.
 ## 구글 애널리틱스에 남는 기록
 
 - `generate_lead` : 견적 문의가 접수될 때 (이름·연락처는 기록하지 않음)
-- `contact_click` : 전화·메일·카톡 버튼을 누를 때 (`method`에 phone / email / kakao)
+- `contact_click` : 전화·메일·카톡 버튼을 누를 때
+  - `contact_method` : phone / email / kakao
+  - `click_location` : 버튼 위치 (contact_section 문의하기 / floating 떠 있는 카톡 버튼 / faq 자주 묻는 질문 / form_error 전송 실패 안내 / other 그 밖)
+  - `link_url` : 누른 링크 주소
+  - 2026-11-01 전까지는 `method`, `link_location`이라는 이름으로 기록됐어요.
 
 ## 사이트에 반영하는 법
 
