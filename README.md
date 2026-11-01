@@ -46,7 +46,7 @@ Netlify 메일·Forms 화면에는 항목 이름이 영어로 나와요.
 ## 구글 애널리틱스에 남는 기록
 
 - `generate_lead` : 견적 문의가 접수될 때 (이름·연락처는 기록하지 않음)
-- `contact_click` : 전화·메일·카톡 버튼을 누를 때 (`method`에 phone / email / kakao)
+- `contact_click` : 전화·메일·카톡 버튼을 누를 때 (`contact_method`에 phone / email / kakao, `link_location`에 floating(오른쪽 아래 버튼) / page(본문 링크))
 
 ## 사이트에 반영하는 법
 

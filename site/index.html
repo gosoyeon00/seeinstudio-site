@@ -1212,9 +1212,9 @@
     if (!a) return;
     const href = a.getAttribute('href');
     const where = a.id === 'float-kakao' ? 'floating' : 'page';
-    if (href.indexOf('pf.kakao.com') !== -1) trackEvent('contact_click', { method: 'kakao', link_location: where });
-    else if (href.indexOf('tel:') === 0) trackEvent('contact_click', { method: 'phone', link_location: where });
-    else if (href.indexOf('mailto:') === 0) trackEvent('contact_click', { method: 'email', link_location: where });
+    if (href.indexOf('pf.kakao.com') !== -1) trackEvent('contact_click', { contact_method: 'kakao', link_location: where });
+    else if (href.indexOf('tel:') === 0) trackEvent('contact_click', { contact_method: 'phone', link_location: where });
+    else if (href.indexOf('mailto:') === 0) trackEvent('contact_click', { contact_method: 'email', link_location: where });
   });
 
   // 견적 문의 폼 -> Netlify Forms 실제 제출 (실패하면 실패 안내, 보내는 중 중복 전송 방지)
