@@ -31,6 +31,7 @@ Netlify 메일·Forms 화면에는 항목 이름이 영어로 나와요.
 | location / location_detail | 장소 / 지방일 때 지역 |
 | crew | 촬영 규모 |
 | delivery_date | 희망 납품일 |
+| heard_from | 알게 된 경로 (선택) |
 | message | 요청사항 |
 | consent | 개인정보 동의 |
 
@@ -45,7 +46,7 @@ Netlify 메일·Forms 화면에는 항목 이름이 영어로 나와요.
 
 ## 구글 애널리틱스에 남는 기록
 
-- `generate_lead` : 견적 문의가 접수될 때 (이름·연락처는 기록하지 않음)
+- `generate_lead` : 견적 문의가 접수될 때 (이름·연락처는 기록하지 않음. `deliverables`·`event_type`·`heard_from`(알게 된 경로) 값이 붙음)
 - `contact_click` : 전화·메일·카톡 버튼을 누를 때
   - `contact_method` : phone / email / kakao
   - `click_location` : 버튼 위치 (contact_section 문의하기 / floating 떠 있는 카톡 버튼 / faq 자주 묻는 질문 / form_error 전송 실패 안내 / other 그 밖)
