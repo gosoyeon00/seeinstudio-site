@@ -19,6 +19,7 @@ const FIELDS = [
   ['location', '장소', true],
   ['crew', '촬영 규모', true],
   ['delivery_date', '희망 납품일', true],
+  ['heard_from', '알게 된 경로', true],
   ['message', '요청사항', false],
 ];
 
