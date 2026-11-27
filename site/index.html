@@ -1078,6 +1078,19 @@
           <label for="delivery_date">희망 납품일 <small>선택</small></label>
           <input id="delivery_date" name="delivery_date" type="date" />
         </div>
+        <fieldset class="form-field">
+          <legend>시인 스튜디오를 어떻게 알게 되셨나요? <small>선택</small></legend>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="heard_from" value="네이버 검색" /><span>네이버 검색</span></label>
+            <label class="choice"><input type="radio" name="heard_from" value="구글 검색" /><span>구글 검색</span></label>
+            <label class="choice"><input type="radio" name="heard_from" value="AI 검색 (ChatGPT·Claude·Gemini 등)" /><span>AI 검색 (ChatGPT·Claude·Gemini 등)</span></label>
+            <label class="choice"><input type="radio" name="heard_from" value="네이버 블로그" /><span>네이버 블로그</span></label>
+            <label class="choice"><input type="radio" name="heard_from" value="인스타그램" /><span>인스타그램</span></label>
+            <label class="choice"><input type="radio" name="heard_from" value="크몽" /><span>크몽</span></label>
+            <label class="choice"><input type="radio" name="heard_from" value="지인 소개" /><span>지인 소개</span></label>
+            <label class="choice"><input type="radio" name="heard_from" value="기타" /><span>기타</span></label>
+          </div>
+        </fieldset>
         <div class="form-field">
           <label for="msg">요청사항</label>
           <textarea id="msg" name="message" placeholder="행사 이름, 꼭 담고 싶은 장면, 궁금한 점 등을 자유롭게 적어 주세요."></textarea>
@@ -1122,7 +1135,7 @@
 <div class="privacy-backdrop" id="privacyBox" onclick="if(event.target===this) closePrivacy()">
   <div class="privacy-box" role="dialog" aria-modal="true" aria-labelledby="privacy-title" tabindex="-1">
     <h3 id="privacy-title">개인정보처리방침</h3>
-    <div class="pv-date">시행일 2026년 10월 25일</div>
+    <div class="pv-date">시행일 2026년 11월 18일</div>
 
     <p>시인 스튜디오(이하 &lsquo;스튜디오&rsquo;)는 이용자의 개인정보를 소중히 다루며,
     「개인정보 보호법」 등 관련 법령을 준수합니다.</p>
@@ -1132,7 +1145,7 @@
       <tr><th>구분</th><th>수집 항목</th><th>목적</th><th>보관 기간</th></tr>
       <tr>
         <td>문의 폼</td>
-        <td>이름 또는 회사명, 연락처(전화번호 또는 이메일), 촬영 정보(원하는 결과물·행사 종류·날짜·시간·장소·촬영 규모·희망 납품일), 요청사항</td>
+        <td>이름 또는 회사명, 연락처(전화번호 또는 이메일), 촬영 정보(원하는 결과물·행사 종류·날짜·시간·장소·촬영 규모·희망 납품일), 알게 된 경로, 요청사항</td>
         <td>견적 안내 및 상담 답변</td>
         <td>문의 처리 후 1년</td>
       </tr>
@@ -1332,7 +1345,8 @@
       trackEvent('generate_lead', {
         form_name: 'quote',
         deliverables: data.get('deliverables') || '',
-        event_type: data.get('event_type') || ''
+        event_type: data.get('event_type') || '',
+        heard_from: data.get('heard_from') || ''
       });
       form.reset();
       syncLocation();
